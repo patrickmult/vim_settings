@@ -1,5 +1,8 @@
 "Cactus' Vim config
+"set background=dark
+set pastetoggle=<F2>
 set showcmd		" Show (partial) command in status line.
+colorscheme grb256
 syntax on               " enable syntax highlighting
 set nocompatible        " set noncompatible with vi
 filetype indent plugin on
