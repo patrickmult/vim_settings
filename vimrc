@@ -2,13 +2,22 @@
 " Thank you Gary Bernhardt @ destroyallsoftware.com for many vim config tips
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+execute pathogen#infect()
+
 set nocompatible        " set noncompatible with vi
 set background=dark     " tell vim your terminal is set to a dark scheme
 set t_Co=256            " enable 256 colors
-colorscheme grb256      " color scheme choice, located in colors folder
+colorscheme grb256      " color scheme, located in colors folder(thanks Gary)
 syntax on               " enable syntax highlighting
 set pastetoggle=<F2>    " set f2 to toggle paste mode
-set showcmd		" render incomplete commands in command window
+noremap <F3> :tabn<CR>
+" set path to current file, current directory, current file in directory
+set path=.,,**   
+" bind tf to open file in tab searching path
+noremap tf :tabfind<space>  
+" set ff to find files with tab complete in path
+noremap ff :find<space> 
+set showcmd		        " render incomplete commands in command window
 filetype plugin indent on
 " map jk to escape insert (escape is akward)
 inoremap jk <esc>
@@ -26,9 +35,13 @@ set number              " show line numbers
 set shiftwidth=2        " sets reindent >> and << commands to two spaces
 set softtabstop=2       " set tab to 2x spaces
 set expandtab           " converts tab inputs to spaces
-set hidden		" Hide buffers when they are abandoned
-set mouse=a		" Enable mouse usage (all modes) JUST IN CASE right?
-set colorcolumn=81      " sets a column to mark the 81st character in a line
+set hidden		        " Hide buffers when they are abandoned
+set mouse=a		        " Enable mouse usage (all modes) JUST IN CASE right?
+" sets a column to mark the 81st to 90th character in a line
+" set colorcolumn=81
+highlight ColorColumn ctermbg=7
+" highlight ColorColumn ctermbg=235 guibg=#2c2d27
+" 
 set hlsearch            " highlight all search patterns
 set incsearch           " incremental search
 set showmatch           " shows matching braces for sets when highlighted
@@ -44,7 +57,7 @@ let mapleader=","       " set , to be the <leader> value for commands
 set switchbuf=useopen   " tell vim to use the existing open buffer if available
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
+" set t_ti= t_te=
 " keep more context when scrolling off the end of a buffer
 set scrolloff=3
 set nostartofline      " save cursor spot on line when switching buffers
@@ -53,6 +66,31 @@ set nostartofline      " save cursor spot on line when switching buffers
 set nojoinspaces
 " If a file is changed outside of vim, automatically reload it without asking
 set autoread
+
+nnoremap <leader><leader> <c-^>
+" Move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+" binds for cycling through buffers
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
+
+" Command t shortcuts
+map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
+map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+
+" Insert a hash rocket with <c-l>
+imap <c-l> <space>=><space>
 
 " jump to the last position when reopening a file
 if has("autocmd")
@@ -106,7 +144,7 @@ map <leader>n :call RenameFile()<cr>
 " InsertTime COMMAND - from Gary's vimrc
 " Insert the current time
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
+command! Time :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEFAULT VIM LEFTOVER STUFF
