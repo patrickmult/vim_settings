@@ -89,6 +89,9 @@ map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
 map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
 
+" set ignored directories in search
+set wildignore+=node_modules
+
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
 
